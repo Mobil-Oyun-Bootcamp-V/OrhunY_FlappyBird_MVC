@@ -18,9 +18,8 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Animator _anim;
     public GameObject _platform;
-    
-
     public float velocity;
+    private PlayerModel.Scenes currentScene;
 
     public Rigidbody2D Rb
     {
@@ -40,7 +39,7 @@ public class PlayerView : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && currentScene == PlayerModel.Scenes.InGame)
         {
             ONTap?.Invoke();
         }

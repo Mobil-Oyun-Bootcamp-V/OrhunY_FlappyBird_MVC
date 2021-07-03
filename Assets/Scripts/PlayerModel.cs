@@ -17,6 +17,7 @@ public class PlayerModel
     private float _velocity;
     private int _bestScore;
     private int _currentScore;
+    private Vector3 startPos;
     
     public Vector3 Position
     {
@@ -40,5 +41,11 @@ public class PlayerModel
     {
         get => _currentScore;
         set => _currentScore = value;
+    }
+    
+    public Vector3 StartPos
+    {
+        get => startPos;
+        set => startPos = value;
     }
 }

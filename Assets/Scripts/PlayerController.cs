@@ -17,6 +17,7 @@ public class PlayerController
         _model.Velocity = _view.velocity;
         _view.ONStart = StartGame;
         _view.ONScore = NewScore;
+        _model.StartPos = _view.transform.position;
     }
 
     public void Jump()
@@ -25,8 +26,6 @@ public class PlayerController
         {
             _view.Anim.SetTrigger("TapTrig");
             _view.Rb.velocity = Vector2.up * _model.Velocity;
-
-            Debug.Log("clicked"); 
         }
     }
 
@@ -50,16 +49,24 @@ public class PlayerController
 
     public void StartGame()
     {
+        _view.transform.position = _model.StartPos;
         _model.currentScore = 0;
+        WriteScore();
         _model.currentScene = PlayerModel.Scenes.InGame;
         _view.UIM.Opening.SetActive(false);
         _view.UIM.InGame.SetActive(true);
+        _view.UIM.EndGame.SetActive(false);
         _view.Rb.simulated = true;
     }
 
     public void NewScore()
     {
         _model.currentScore++;
+        WriteScore();
+    }
+
+    private void WriteScore()
+    {
         _view.UIM._currentScore.text = _model.currentScore.ToString();
     }
 }
