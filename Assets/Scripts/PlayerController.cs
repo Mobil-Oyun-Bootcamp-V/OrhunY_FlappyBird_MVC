@@ -13,20 +13,17 @@ public class PlayerController
         _view = view;
         _view.ONHit = Dead;
         _view.ONTap = Jump;
-        _model = new PlayerModel();
-        _model.Velocity = _view.velocity;
         _view.ONStart = StartGame;
         _view.ONScore = NewScore;
+        _model = new PlayerModel();
+        _model.Velocity = _view.velocity;
         _model.StartPos = _view.transform.position;
     }
 
     public void Jump()
     {
-        if (_model.currentScene == PlayerModel.Scenes.InGame)
-        {
             _view.Anim.SetTrigger("TapTrig");
             _view.Rb.velocity = Vector2.up * _model.Velocity;
-        }
     }
 
     public void Dead()
@@ -34,9 +31,7 @@ public class PlayerController
         _view.Anim.ResetTrigger("TapTrig");
         _view.Rb.simulated = false;
         _view._platform.GetComponent<Animator>().enabled = false;
-        _view.UIM.InGame.SetActive(false);
-        _view.UIM.EndGame.SetActive(true);
-        _model.currentScene = PlayerModel.Scenes.EndGame;
+        _view.UIM.changeScene(PlayerModel.Scenes.EndGame);
 
         if (_model.currentScore > _model.BestScore)
         {
@@ -52,10 +47,7 @@ public class PlayerController
         _view.transform.position = _model.StartPos;
         _model.currentScore = 0;
         WriteScore();
-        _model.currentScene = PlayerModel.Scenes.InGame;
-        _view.UIM.Opening.SetActive(false);
-        _view.UIM.InGame.SetActive(true);
-        _view.UIM.EndGame.SetActive(false);
+        _view.UIM.changeScene(PlayerModel.Scenes.InGame);
         _view.Rb.simulated = true;
     }
 

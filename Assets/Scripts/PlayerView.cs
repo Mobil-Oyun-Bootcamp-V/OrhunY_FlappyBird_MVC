@@ -19,7 +19,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Animator _anim;
     public GameObject _platform;
     public float velocity;
-    private PlayerModel.Scenes currentScene;
+    public PlayerModel.Scenes currentScene;
 
     public Rigidbody2D Rb
     {
